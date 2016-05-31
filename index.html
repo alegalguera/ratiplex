@@ -1,0 +1,158 @@
+<html lang="en">
+<head>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+ <!-- Angular Material style sheet -->
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body ng-app="MyApp" layout="column" ng-controller="MainController as main">
+
+
+  <!-- header toolbar -->
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <span>My App's Title</span>
+        <!-- fill up the space between left and right area -->
+        <span flex></span>
+        <md-button>
+          Right Bar Button
+        </md-button>
+      </div>
+    </md-toolbar>
+
+
+<div layout="row">
+  <!-- movies list -->
+<md-sidenav layout-fill layout-margin md-component-id="left" md-is-locked-open="$mdMedia('gt-xs')" class="md-whiteframe-z1">
+
+
+    <md-list>
+
+<!-- movie item-->
+<md-item ng-repeat="film in main.films" class="md-2-line">
+  <a class="md-list-item-text" layout="column" ng-click="main.selectFilm($index)">
+        <h4>{{film.title}}</h4>
+        <p>
+            {{film.year}}
+        </p>
+  </a><md-divider></md-divider>
+</md-item>
+<!-- </ movie item-->
+
+    </md-list>
+
+
+
+</md-sidenav>
+
+
+  <!-- content -->
+<md-content  class="md-padding" layout="column" flex layout-align="center center">
+
+<!-- search input -->
+<md-input-container class="md-block" ng-show="searchContainer">
+
+    <form ng-submit="$event.preventDefault()" name="searchForm">
+
+  <div layout-gt-sm="row">
+    <md-icon>search</md-icon>
+    <md-autocomplete flex required
+        md-input-name="autocompleteField"
+        md-input-minlength="2"
+        md-input-maxlength="18"
+        md-no-cache="ctrl.noCache"
+        md-selected-item="ctrl.selectedItem"
+        md-search-text="ctrl.searchText"
+        md-items="item in ctrl.querySearch(ctrl.searchText)"
+        md-item-text="item.display"
+        md-floating-label="Favorite state">
+      <md-item-template>
+        <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
+      </md-item-template>
+      <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
+        <div ng-message="required">You <b>must</b> have a favorite state.</div>
+        <div ng-message="minlength">Your entry is not long enough.</div>
+        <div ng-message="maxlength">Your entry is too long.</div>
+      </div>
+    </md-autocomplete>
+  </div>
+</form>
+</md-input-container><br>
+
+
+<div ng-hide="loginContainer">
+  <md-input-container class="md-block">
+      <label>Login</label>
+      <input required name="clientName" ng-model="clientName">
+      <div ng-messages="clientName.$error">
+          <div ng-message="required">This is required.</div>
+      </div>
+  </md-input-container>
+
+
+  <md-input-container class="md-block">
+      <label>Pssword</label>
+      <input required type="password" name="clientPass" ng-model="clientPass">
+      <div ng-messages="clientPass.$error">
+          <div ng-message="required">This is required.</div>
+      </div>
+  </md-input-container>
+
+  <!-- <md-input-container class="md-block">
+      <label>Client Email</label>
+      <input required type="email" name="clientEmail" ng-model="project.clientEmail" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+      <div ng-messages="projectForm.clientEmail.$error" role="alert">
+          <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+              Your email must be between 10 and 100 characters long and look like an e-mail address.
+          </div>
+      </div>
+  </md-input-container> -->
+  <md-button class="md-raised  md-primary" ng-click="main.login()">
+   LogIn
+  </md-button>
+</div>
+
+
+
+
+
+<div layout="row">
+
+    <md-card>
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-headline">{{main.selectedFilm.title}}</span>
+          <span class="md-subhead" style="overflow:auto;min-height: 400px;">{{main.selectedFilm.summary}}</span>
+        </md-card-title-text>
+        <md-card-title-media>
+          <div class="card-media md-media-lg md-padding"><img ng-src="gato_n.gif" alt="gato" />  </div>
+        </md-card-title-media>
+      </md-card-title>
+      <md-card-actions class="md-padding" layout="row" layout-align="end center">
+        <md-button class="md-fab md-primary" aria-label="Favorite"><md-icon>favorite</md-icon></md-button>
+        <md-button class="md-fab md-warn" aria-label="Very Dissatisfied"><md-icon>sentiment_very_dissatisfied</md-icon></md-button>
+      </md-card-actions>
+    </md-card>
+
+
+
+</div>
+
+
+  </md-content>
+
+</div>
+
+
+  <!-- Angular Material Dependencies -->
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.min.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-animate.min.js"></script>
+ <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular-aria.min.js"></script>
+
+ <!-- Angular Material Javascript now available via Google CDN; version 0.9.4 used here -->
+ <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0-rc2/angular-material.min.js"></script>
+ <script src="app.js"></script>
+
+
+</body>
+</html>

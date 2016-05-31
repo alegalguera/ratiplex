@@ -1,0 +1,9 @@
+fase 1: list all movies
+		- build	template
+		- static info
+		- dinamic from API plex	
+
+fase 2: single mark to ok / mark to ban
+
+
+fase 3:  request a movie
