@@ -127,8 +127,9 @@ for (var i = 0; i <  xmlDoc.childNodes[0].getAttribute("size"); i++) {
 };
 
 
-  _this.selectFilm = function(index) {
-      _this.selectedFilm = _this.films[index];
+  _this.selectFilm = function(item) {
+    //  console.log(item);
+      _this.selectedFilm = item;
   }
 
 

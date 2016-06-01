@@ -29,8 +29,8 @@
     <md-list>
 
 <!-- movie item-->
-<md-item ng-repeat="film in main.films" class="md-2-line">
-  <a class="md-list-item-text" layout="column" ng-click="main.selectFilm($index)">
+<md-item ng-repeat="film in main.films | filter:searchText" class="md-2-line">
+  <a class="md-list-item-text" layout="column" ng-click="main.selectFilm(film)">
         <h4>{{film.title}}</h4>
         <p>
             {{film.year}}
@@ -51,35 +51,13 @@
 
 <!-- search input -->
 <md-input-container class="md-block" ng-show="searchContainer">
-
-    <form ng-submit="$event.preventDefault()" name="searchForm">
-
-  <div layout-gt-sm="row">
-    <md-icon>search</md-icon>
-    <md-autocomplete flex required
-        md-input-name="autocompleteField"
-        md-input-minlength="2"
-        md-input-maxlength="18"
-        md-no-cache="ctrl.noCache"
-        md-selected-item="ctrl.selectedItem"
-        md-search-text="ctrl.searchText"
-        md-items="item in ctrl.querySearch(ctrl.searchText)"
-        md-item-text="item.display"
-        md-floating-label="Favorite state">
-      <md-item-template>
-        <span md-highlight-text="ctrl.searchText">{{item.display}}</span>
-      </md-item-template>
-      <div ng-messages="searchForm.autocompleteField.$error" ng-if="searchForm.autocompleteField.$touched">
-        <div ng-message="required">You <b>must</b> have a favorite state.</div>
-        <div ng-message="minlength">Your entry is not long enough.</div>
-        <div ng-message="maxlength">Your entry is too long.</div>
-      </div>
-    </md-autocomplete>
-  </div>
-</form>
-</md-input-container><br>
+  <label>Search</label><md-icon>search</md-icon>
+  <input ng-model="searchText">
+</md-input-container>
 
 
+
+<!-- login container -->
 <div ng-hide="loginContainer">
   <md-input-container class="md-block">
       <label>Login</label>
@@ -118,11 +96,11 @@
 
 <div layout="row">
 
-    <md-card>
+    <md-card style="overflow:hidden">
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">{{main.selectedFilm.title}}</span>
-          <span class="md-subhead" style="overflow:auto;min-height: 400px;">{{main.selectedFilm.summary}}</span>
+          <span class="md-subhead" style="overflow:auto;">{{main.selectedFilm.summary}}</span>
         </md-card-title-text>
         <md-card-title-media>
           <div class="card-media md-media-lg md-padding"><img ng-src="gato_n.gif" alt="gato" />  </div>
